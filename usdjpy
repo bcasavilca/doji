@@ -3,6 +3,9 @@
 //|                                  Copyright 2023, MetaQuotes Ltd. |
 //|                                             https://www.mql5.com |
 //+------------------------------------------------------------------+
+#include <Trade\Trade.mqh>
+CTrade trade;
+
 void OnTick()
 {
     getDoji();
@@ -22,7 +25,21 @@ int getDoji()
         // Doji with tolerance of 3 points
         if (MathAbs(open - close) <= 000.003)
         {
-            createObj(time, rates[0].low, clrYellow, "Doji");
+           createObj(time, rates[0].low, clrYellow, "Doji");
+//Logic for Buy Order
+
+double ask= SymbolInfoDouble(NULL,SYMBOL_ASK);
+trade.Buy
+(
+0.01,     // position volume
+NULL,     // symbol
+ask,      // execution price
+0,        // stop loss price
+1,        // take profit price
+NULL     // comment
+);   
+
+
             return 1;
         }
     }
